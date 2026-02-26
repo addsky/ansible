@@ -2,19 +2,18 @@
 - name: Update all Ubuntu hosts
   hosts: all
   become: yes
+  environment:
+    ANSIBLE_HOST_KEY_CHECKING: "False"
   tasks:
     - name: Update apt cache
       apt:
         update_cache: yes
-
     - name: Upgrade all packages
       apt:
         upgrade: dist
-
     - name: Remove unused packages
       apt:
         autoremove: yes
-
     - name: Reboot if required
       reboot:
         msg: "Reboot required after updates"
